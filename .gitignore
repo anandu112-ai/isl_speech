@@ -5,21 +5,37 @@ __pycache__/
 # Virtual environment
 .venv/
 
-# VS Code
+# VS Code & IDEs
 .vscode/
+.idea/
 
 # Jupyter
 .ipynb_checkpoints/
 
-# Model files
+# Models & Checkpoints
 *.pkl
 *.joblib
 *.h5
 *.keras
+*.pt
+models/checkpoints/
+models/best_model/
 
-# Dataset
+# Dataset & Downloaded Media
 dataset/raw/
 dataset/processed/
+data/videos/
+data/features/
+data/processed/
+data/metadata/download_manifest.csv
+data/metadata/features_manifest.csv
+data/metadata/video_quality.csv
+
+# Logs & Temporary Files
+logs/
+*.log
+*.comp
+*.part
 
 # OS
 .DS_Store
