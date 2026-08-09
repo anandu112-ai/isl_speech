@@ -24,3 +24,6 @@ dataset/processed/
 # OS
 .DS_Store
 Thumbs.db
+
+# MediaPipe model files
+*.task

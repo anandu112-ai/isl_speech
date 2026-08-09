@@ -1,0 +1,240 @@
+2026-08-09 13:25:16,089 [INFO] Starting DRY RUN mode...
+2026-08-09 13:25:16,126 [INFO] Total selection: 650 videos
+2026-08-09 13:25:16,126 [INFO] Already verified: 0 videos
+2026-08-09 13:25:16,127 [INFO] Pending/Failed videos to process: 650
+2026-08-09 13:25:16,127 [INFO] Unique remote ZIP archives involved: 35
+2026-08-09 13:25:16,127 [INFO] Inspecting central directory for archive: Animals_1of2.zip (39 videos needed)
+2026-08-09 13:25:18,635 [INFO] Archive Animals_1of2.zip: matched 39/39 videos. Compressed: 691.93 MB, Original: 700.11 MB
+2026-08-09 13:25:18,636 [INFO] Inspecting central directory for archive: Adjectives_1of8.zip (39 videos needed)
+2026-08-09 13:25:19,531 [INFO] Archive Adjectives_1of8.zip: matched 39/39 videos. Compressed: 463.06 MB, Original: 473.67 MB
+2026-08-09 13:25:19,533 [INFO] Inspecting central directory for archive: Means_of_Transportation_1of2.zip (13 videos needed)
+2026-08-09 13:25:20,810 [INFO] Archive Means_of_Transportation_1of2.zip: matched 13/13 videos. Compressed: 284.66 MB, Original: 287.71 MB
+2026-08-09 13:25:20,810 [INFO] Inspecting central directory for archive: Society_2of3.zip (13 videos needed)
+2026-08-09 13:25:21,933 [INFO] Archive Society_2of3.zip: matched 13/13 videos. Compressed: 162.62 MB, Original: 164.45 MB
+2026-08-09 13:25:21,933 [INFO] Inspecting central directory for archive: Means_of_Transportation_2of2.zip (13 videos needed)
+2026-08-09 13:25:23,009 [INFO] Archive Means_of_Transportation_2of2.zip: matched 13/13 videos. Compressed: 239.30 MB, Original: 242.07 MB
+2026-08-09 13:25:23,010 [INFO] Inspecting central directory for archive: Places_1of4.zip (13 videos needed)
+2026-08-09 13:25:24,055 [INFO] Archive Places_1of4.zip: matched 13/13 videos. Compressed: 166.25 MB, Original: 168.67 MB
+2026-08-09 13:25:24,055 [INFO] Inspecting central directory for archive: Society_1of3.zip (13 videos needed)
+2026-08-09 13:25:25,509 [INFO] Archive Society_1of3.zip: matched 13/13 videos. Compressed: 169.83 MB, Original: 171.71 MB
+2026-08-09 13:25:25,509 [INFO] Inspecting central directory for archive: Places_2of4.zip (13 videos needed)
+2026-08-09 13:25:26,562 [INFO] Archive Places_2of4.zip: matched 13/13 videos. Compressed: 183.99 MB, Original: 186.36 MB
+2026-08-09 13:25:26,562 [INFO] Inspecting central directory for archive: Places_3of4.zip (13 videos needed)
+2026-08-09 13:25:27,484 [INFO] Archive Places_3of4.zip: matched 13/13 videos. Compressed: 144.52 MB, Original: 146.61 MB
+2026-08-09 13:25:27,484 [INFO] Inspecting central directory for archive: Home_1of4.zip (13 videos needed)
+2026-08-09 13:25:28,693 [INFO] Archive Home_1of4.zip: matched 13/13 videos. Compressed: 191.06 MB, Original: 192.97 MB
+2026-08-09 13:25:28,694 [INFO] Inspecting central directory for archive: Home_2of4.zip (13 videos needed)
+2026-08-09 13:25:30,006 [INFO] Archive Home_2of4.zip: matched 13/13 videos. Compressed: 134.12 MB, Original: 135.77 MB
+2026-08-09 13:25:30,007 [INFO] Inspecting central directory for archive: Places_4of4.zip (13 videos needed)
+2026-08-09 13:25:31,330 [INFO] Archive Places_4of4.zip: matched 13/13 videos. Compressed: 148.36 MB, Original: 150.58 MB
+2026-08-09 13:25:31,330 [INFO] Inspecting central directory for archive: Clothes_1of2.zip (13 videos needed)
+2026-08-09 13:25:32,536 [INFO] Archive Clothes_1of2.zip: matched 13/13 videos. Compressed: 176.40 MB, Original: 180.09 MB
+2026-08-09 13:25:32,536 [INFO] Inspecting central directory for archive: Pronouns_1of2.zip (26 videos needed)
+2026-08-09 13:25:33,643 [INFO] Archive Pronouns_1of2.zip: matched 26/26 videos. Compressed: 316.11 MB, Original: 324.17 MB
+2026-08-09 13:25:33,643 [INFO] Inspecting central directory for archive: Home_3of4.zip (13 videos needed)
+2026-08-09 13:25:34,876 [INFO] Archive Home_3of4.zip: matched 13/13 videos. Compressed: 143.35 MB, Original: 144.95 MB
+2026-08-09 13:25:34,876 [INFO] Inspecting central directory for archive: Clothes_2of2.zip (26 videos needed)
+2026-08-09 13:25:36,050 [INFO] Archive Clothes_2of2.zip: matched 26/26 videos. Compressed: 418.20 MB, Original: 426.88 MB
+2026-08-09 13:25:36,051 [INFO] Inspecting central directory for archive: Pronouns_2of2.zip (13 videos needed)
+2026-08-09 13:25:37,153 [INFO] Archive Pronouns_2of2.zip: matched 13/13 videos. Compressed: 187.72 MB, Original: 192.25 MB
+2026-08-09 13:25:37,153 [INFO] Inspecting central directory for archive: Colours_1of2.zip (13 videos needed)
+2026-08-09 13:25:38,253 [INFO] Archive Colours_1of2.zip: matched 13/13 videos. Compressed: 155.94 MB, Original: 159.36 MB
+2026-08-09 13:25:38,254 [INFO] Inspecting central directory for archive: Greetings_1of2.zip (26 videos needed)
+2026-08-09 13:25:39,293 [INFO] Archive Greetings_1of2.zip: matched 26/26 videos. Compressed: 327.60 MB, Original: 335.59 MB
+2026-08-09 13:25:39,294 [INFO] Inspecting central directory for archive: Electronics_1of2.zip (26 videos needed)
+2026-08-09 13:25:40,289 [INFO] Archive Electronics_1of2.zip: matched 26/26 videos. Compressed: 296.47 MB, Original: 301.49 MB
+2026-08-09 13:25:40,289 [INFO] Inspecting central directory for archive: Colours_2of2.zip (26 videos needed)
+2026-08-09 13:25:41,310 [INFO] Archive Colours_2of2.zip: matched 26/26 videos. Compressed: 278.24 MB, Original: 284.35 MB
+2026-08-09 13:25:41,311 [INFO] Inspecting central directory for archive: Greetings_2of2.zip (13 videos needed)
+2026-08-09 13:25:42,374 [INFO] Archive Greetings_2of2.zip: matched 13/13 videos. Compressed: 180.91 MB, Original: 184.88 MB
+2026-08-09 13:25:42,374 [INFO] Inspecting central directory for archive: People_1of5.zip (13 videos needed)
+2026-08-09 13:25:43,326 [INFO] Archive People_1of5.zip: matched 13/13 videos. Compressed: 151.13 MB, Original: 154.91 MB
+2026-08-09 13:25:43,326 [INFO] Inspecting central directory for archive: Seasons_1of1.zip (26 videos needed)
+2026-08-09 13:25:44,445 [INFO] Archive Seasons_1of1.zip: matched 26/26 videos. Compressed: 315.05 MB, Original: 320.06 MB
+2026-08-09 13:25:44,445 [INFO] Inspecting central directory for archive: People_2of5.zip (13 videos needed)
+2026-08-09 13:25:45,928 [INFO] Archive People_2of5.zip: matched 13/13 videos. Compressed: 159.50 MB, Original: 162.36 MB
+2026-08-09 13:25:45,928 [INFO] Inspecting central directory for archive: Days_and_Time_1of3.zip (13 videos needed)
+2026-08-09 13:25:46,935 [INFO] Archive Days_and_Time_1of3.zip: matched 13/13 videos. Compressed: 137.02 MB, Original: 139.38 MB
+2026-08-09 13:25:46,936 [INFO] Inspecting central directory for archive: People_4of5.zip (26 videos needed)
+2026-08-09 13:25:47,948 [INFO] Archive People_4of5.zip: matched 26/26 videos. Compressed: 299.16 MB, Original: 305.94 MB
+2026-08-09 13:25:47,948 [INFO] Inspecting central directory for archive: Days_and_Time_2of3.zip (13 videos needed)
+2026-08-09 13:25:48,902 [INFO] Archive Days_and_Time_2of3.zip: matched 13/13 videos. Compressed: 122.60 MB, Original: 124.82 MB
+2026-08-09 13:25:48,902 [INFO] Inspecting central directory for archive: Adjectives_4of8.zip (26 videos needed)
+2026-08-09 13:25:49,669 [INFO] Archive Adjectives_4of8.zip: matched 26/26 videos. Compressed: 298.57 MB, Original: 305.43 MB
+2026-08-09 13:25:49,669 [INFO] Inspecting central directory for archive: Adjectives_5of8.zip (26 videos needed)
+2026-08-09 13:25:50,733 [INFO] Archive Adjectives_5of8.zip: matched 26/26 videos. Compressed: 294.75 MB, Original: 301.38 MB
+2026-08-09 13:25:50,733 [INFO] Inspecting central directory for archive: Jobs_1of2.zip (26 videos needed)
+2026-08-09 13:25:51,427 [INFO] Archive Jobs_1of2.zip: matched 26/26 videos. Compressed: 309.37 MB, Original: 314.74 MB
+2026-08-09 13:25:51,427 [INFO] Inspecting central directory for archive: Days_and_Time_3of3.zip (13 videos needed)
+2026-08-09 13:25:52,166 [INFO] Archive Days_and_Time_3of3.zip: matched 13/13 videos. Compressed: 121.32 MB, Original: 123.66 MB
+2026-08-09 13:25:52,166 [INFO] Inspecting central directory for archive: Adjectives_6of8.zip (26 videos needed)
+2026-08-09 13:25:53,587 [INFO] Archive Adjectives_6of8.zip: matched 26/26 videos. Compressed: 300.56 MB, Original: 307.95 MB
+2026-08-09 13:25:53,588 [INFO] Inspecting central directory for archive: Adjectives_7of8.zip (13 videos needed)
+2026-08-09 13:25:54,617 [INFO] Archive Adjectives_7of8.zip: matched 13/13 videos. Compressed: 152.29 MB, Original: 155.73 MB
+2026-08-09 13:25:54,617 [INFO] Inspecting central directory for archive: Adjectives_8of8.zip (13 videos needed)
+2026-08-09 13:25:55,447 [INFO] Archive Adjectives_8of8.zip: matched 13/13 videos. Compressed: 167.61 MB, Original: 171.35 MB
+2026-08-09 13:25:55,447 [INFO] ============================================================
+2026-08-09 13:25:55,447 [INFO] DRY RUN SUMMARY
+2026-08-09 13:25:55,448 [INFO] ============================================================
+2026-08-09 13:25:55,448 [INFO] Total videos matched: 650/650
+2026-08-09 13:25:55,448 [INFO] Total compressed download required: 8.10 GB
+2026-08-09 13:25:55,448 [INFO] Total extracted size: 8.24 GB
+2026-08-09 13:25:55,448 [INFO] DRY RUN COMPLETE - No video payloads downloaded.
+2026-08-09 13:26:02,964 [INFO] ============================================================
+2026-08-09 13:26:02,965 [INFO] RUNNING ONE-VIDEO TEST (Target: Animals/1. Dog/MVI_3060.MOV)
+2026-08-09 13:26:02,965 [INFO] ============================================================
+2026-08-09 13:26:02,975 [INFO] Testing video: Animals/1. Dog/MVI_3060.MOV
+2026-08-09 13:26:02,975 [INFO] Archive:      Animals_1of2.zip
+2026-08-09 13:26:02,975 [INFO] Archive URL:  https://zenodo.org/api/records/4010759/files/Animals_1of2.zip/content
+2026-08-09 13:27:35,564 [INFO] ------------------------------------------------------------
+2026-08-09 13:27:35,565 [INFO] Archive           : Animals_1of2.zip
+2026-08-09 13:27:35,565 [INFO] Video             : Animals/1. Dog/MVI_3060.MOV
+2026-08-09 13:27:35,565 [INFO] Compressed bytes  : 18323697 (17.47 MB)
+2026-08-09 13:27:35,566 [INFO] Original size     : 18564928 (17.70 MB)
+2026-08-09 13:27:35,566 [INFO] CRC32             : 0x5023369E
+2026-08-09 13:27:35,566 [INFO] Output size       : 18564928 bytes
+2026-08-09 13:27:35,566 [INFO] Download time     : 92.57 s
+2026-08-09 13:27:35,566 [INFO] Validation        : Valid
+2026-08-09 13:27:35,566 [INFO] 
+Remote extraction test: PASS
+2026-08-09 13:30:11,750 [INFO] Starting DRY RUN mode...
+2026-08-09 13:30:11,797 [INFO] Total selection: 650 videos
+2026-08-09 13:30:11,798 [INFO] Already verified: 0 videos
+2026-08-09 13:30:11,799 [INFO] Pending/Failed videos to process: 650
+2026-08-09 13:30:11,800 [INFO] Unique remote ZIP archives involved: 35
+2026-08-09 13:30:11,800 [INFO] Inspecting central directory for archive: Animals_1of2.zip (39 videos needed)
+2026-08-09 13:30:15,242 [INFO] Archive Animals_1of2.zip: matched 39/39 videos. Compressed: 691.93 MB, Original: 700.11 MB
+2026-08-09 13:30:15,246 [INFO] Inspecting central directory for archive: Adjectives_1of8.zip (39 videos needed)
+2026-08-09 13:30:16,378 [INFO] Archive Adjectives_1of8.zip: matched 39/39 videos. Compressed: 463.06 MB, Original: 473.67 MB
+2026-08-09 13:30:16,381 [INFO] Inspecting central directory for archive: Means_of_Transportation_1of2.zip (13 videos needed)
+2026-08-09 13:30:17,367 [INFO] Archive Means_of_Transportation_1of2.zip: matched 13/13 videos. Compressed: 284.66 MB, Original: 287.71 MB
+2026-08-09 13:30:17,369 [INFO] Inspecting central directory for archive: Society_2of3.zip (13 videos needed)
+2026-08-09 13:30:18,197 [INFO] Archive Society_2of3.zip: matched 13/13 videos. Compressed: 162.62 MB, Original: 164.45 MB
+2026-08-09 13:30:18,198 [INFO] Inspecting central directory for archive: Means_of_Transportation_2of2.zip (13 videos needed)
+2026-08-09 13:30:19,287 [INFO] Archive Means_of_Transportation_2of2.zip: matched 13/13 videos. Compressed: 239.30 MB, Original: 242.07 MB
+2026-08-09 13:30:19,289 [INFO] Inspecting central directory for archive: Places_1of4.zip (13 videos needed)
+2026-08-09 13:30:20,030 [INFO] Archive Places_1of4.zip: matched 13/13 videos. Compressed: 166.25 MB, Original: 168.67 MB
+2026-08-09 13:30:20,030 [INFO] Inspecting central directory for archive: Society_1of3.zip (13 videos needed)
+2026-08-09 13:30:21,229 [INFO] Archive Society_1of3.zip: matched 13/13 videos. Compressed: 169.83 MB, Original: 171.71 MB
+2026-08-09 13:30:21,231 [INFO] Inspecting central directory for archive: Places_2of4.zip (13 videos needed)
+2026-08-09 13:30:22,459 [INFO] Archive Places_2of4.zip: matched 13/13 videos. Compressed: 183.99 MB, Original: 186.36 MB
+2026-08-09 13:30:22,461 [INFO] Inspecting central directory for archive: Places_3of4.zip (13 videos needed)
+2026-08-09 13:30:23,457 [INFO] Archive Places_3of4.zip: matched 13/13 videos. Compressed: 144.52 MB, Original: 146.61 MB
+2026-08-09 13:30:23,458 [INFO] Inspecting central directory for archive: Home_1of4.zip (13 videos needed)
+2026-08-09 13:30:24,612 [INFO] Archive Home_1of4.zip: matched 13/13 videos. Compressed: 191.06 MB, Original: 192.97 MB
+2026-08-09 13:30:24,613 [INFO] Inspecting central directory for archive: Home_2of4.zip (13 videos needed)
+2026-08-09 13:30:25,735 [INFO] Archive Home_2of4.zip: matched 13/13 videos. Compressed: 134.12 MB, Original: 135.77 MB
+2026-08-09 13:30:25,737 [INFO] Inspecting central directory for archive: Places_4of4.zip (13 videos needed)
+2026-08-09 13:30:26,675 [INFO] Archive Places_4of4.zip: matched 13/13 videos. Compressed: 148.36 MB, Original: 150.58 MB
+2026-08-09 13:30:26,676 [INFO] Inspecting central directory for archive: Clothes_1of2.zip (13 videos needed)
+2026-08-09 13:30:27,907 [INFO] Archive Clothes_1of2.zip: matched 13/13 videos. Compressed: 176.40 MB, Original: 180.09 MB
+2026-08-09 13:30:27,908 [INFO] Inspecting central directory for archive: Pronouns_1of2.zip (26 videos needed)
+2026-08-09 13:30:28,931 [INFO] Archive Pronouns_1of2.zip: matched 26/26 videos. Compressed: 316.11 MB, Original: 324.17 MB
+2026-08-09 13:30:28,932 [INFO] Inspecting central directory for archive: Home_3of4.zip (13 videos needed)
+2026-08-09 13:30:30,224 [INFO] Archive Home_3of4.zip: matched 13/13 videos. Compressed: 143.35 MB, Original: 144.95 MB
+2026-08-09 13:30:30,227 [INFO] Inspecting central directory for archive: Clothes_2of2.zip (26 videos needed)
+2026-08-09 13:30:31,475 [INFO] Archive Clothes_2of2.zip: matched 26/26 videos. Compressed: 418.20 MB, Original: 426.88 MB
+2026-08-09 13:30:31,477 [INFO] Inspecting central directory for archive: Pronouns_2of2.zip (13 videos needed)
+2026-08-09 13:30:32,525 [INFO] Archive Pronouns_2of2.zip: matched 13/13 videos. Compressed: 187.72 MB, Original: 192.25 MB
+2026-08-09 13:30:32,527 [INFO] Inspecting central directory for archive: Colours_1of2.zip (13 videos needed)
+2026-08-09 13:30:34,042 [INFO] Archive Colours_1of2.zip: matched 13/13 videos. Compressed: 155.94 MB, Original: 159.36 MB
+2026-08-09 13:30:34,049 [INFO] Inspecting central directory for archive: Greetings_1of2.zip (26 videos needed)
+2026-08-09 13:30:35,158 [INFO] Archive Greetings_1of2.zip: matched 26/26 videos. Compressed: 327.60 MB, Original: 335.59 MB
+2026-08-09 13:30:35,159 [INFO] Inspecting central directory for archive: Electronics_1of2.zip (26 videos needed)
+2026-08-09 13:30:36,898 [INFO] Archive Electronics_1of2.zip: matched 26/26 videos. Compressed: 296.47 MB, Original: 301.49 MB
+2026-08-09 13:30:36,899 [INFO] Inspecting central directory for archive: Colours_2of2.zip (26 videos needed)
+2026-08-09 13:30:38,006 [INFO] Archive Colours_2of2.zip: matched 26/26 videos. Compressed: 278.24 MB, Original: 284.35 MB
+2026-08-09 13:30:38,007 [INFO] Inspecting central directory for archive: Greetings_2of2.zip (13 videos needed)
+2026-08-09 13:30:39,192 [INFO] Archive Greetings_2of2.zip: matched 13/13 videos. Compressed: 180.91 MB, Original: 184.88 MB
+2026-08-09 13:30:39,193 [INFO] Inspecting central directory for archive: People_1of5.zip (13 videos needed)
+2026-08-09 13:30:40,325 [INFO] Archive People_1of5.zip: matched 13/13 videos. Compressed: 151.13 MB, Original: 154.91 MB
+2026-08-09 13:30:40,326 [INFO] Inspecting central directory for archive: Seasons_1of1.zip (26 videos needed)
+2026-08-09 13:30:41,403 [INFO] Archive Seasons_1of1.zip: matched 26/26 videos. Compressed: 315.05 MB, Original: 320.06 MB
+2026-08-09 13:30:41,410 [INFO] Inspecting central directory for archive: People_2of5.zip (13 videos needed)
+2026-08-09 13:30:42,455 [INFO] Archive People_2of5.zip: matched 13/13 videos. Compressed: 159.50 MB, Original: 162.36 MB
+2026-08-09 13:30:42,457 [INFO] Inspecting central directory for archive: Days_and_Time_1of3.zip (13 videos needed)
+2026-08-09 13:30:43,569 [INFO] Archive Days_and_Time_1of3.zip: matched 13/13 videos. Compressed: 137.02 MB, Original: 139.38 MB
+2026-08-09 13:30:43,569 [INFO] Inspecting central directory for archive: People_4of5.zip (26 videos needed)
+2026-08-09 13:30:44,518 [INFO] Archive People_4of5.zip: matched 26/26 videos. Compressed: 299.16 MB, Original: 305.94 MB
+2026-08-09 13:30:44,520 [INFO] Inspecting central directory for archive: Days_and_Time_2of3.zip (13 videos needed)
+2026-08-09 13:30:45,645 [INFO] Archive Days_and_Time_2of3.zip: matched 13/13 videos. Compressed: 122.60 MB, Original: 124.82 MB
+2026-08-09 13:30:45,647 [INFO] Inspecting central directory for archive: Adjectives_4of8.zip (26 videos needed)
+2026-08-09 13:30:46,726 [INFO] Archive Adjectives_4of8.zip: matched 26/26 videos. Compressed: 298.57 MB, Original: 305.43 MB
+2026-08-09 13:30:46,727 [INFO] Inspecting central directory for archive: Adjectives_5of8.zip (26 videos needed)
+2026-08-09 13:30:47,778 [INFO] Archive Adjectives_5of8.zip: matched 26/26 videos. Compressed: 294.75 MB, Original: 301.38 MB
+2026-08-09 13:30:47,780 [INFO] Inspecting central directory for archive: Jobs_1of2.zip (26 videos needed)
+2026-08-09 13:30:48,929 [INFO] Archive Jobs_1of2.zip: matched 26/26 videos. Compressed: 309.37 MB, Original: 314.74 MB
+2026-08-09 13:30:48,930 [INFO] Inspecting central directory for archive: Days_and_Time_3of3.zip (13 videos needed)
+2026-08-09 13:30:49,928 [INFO] Archive Days_and_Time_3of3.zip: matched 13/13 videos. Compressed: 121.32 MB, Original: 123.66 MB
+2026-08-09 13:30:49,933 [INFO] Inspecting central directory for archive: Adjectives_6of8.zip (26 videos needed)
+2026-08-09 13:30:51,025 [INFO] Archive Adjectives_6of8.zip: matched 26/26 videos. Compressed: 300.56 MB, Original: 307.95 MB
+2026-08-09 13:30:51,026 [INFO] Inspecting central directory for archive: Adjectives_7of8.zip (13 videos needed)
+2026-08-09 13:30:52,146 [INFO] Archive Adjectives_7of8.zip: matched 13/13 videos. Compressed: 152.29 MB, Original: 155.73 MB
+2026-08-09 13:30:52,149 [INFO] Inspecting central directory for archive: Adjectives_8of8.zip (13 videos needed)
+2026-08-09 13:30:53,186 [INFO] Archive Adjectives_8of8.zip: matched 13/13 videos. Compressed: 167.61 MB, Original: 171.35 MB
+2026-08-09 13:30:53,186 [INFO] ============================================================
+2026-08-09 13:30:53,187 [INFO] DRY RUN SUMMARY
+2026-08-09 13:30:53,187 [INFO] ============================================================
+2026-08-09 13:30:53,188 [INFO] Total videos matched: 650/650
+2026-08-09 13:30:53,188 [INFO] Total compressed download required: 8.10 GB
+2026-08-09 13:30:53,189 [INFO] Total extracted size: 8.24 GB
+2026-08-09 13:30:53,190 [INFO] DRY RUN COMPLETE - No video payloads downloaded.
+2026-08-09 13:30:55,038 [INFO] ============================================================
+2026-08-09 13:30:55,039 [INFO] RUNNING ONE-VIDEO TEST (Target: Animals/1. Dog/MVI_3060.MOV)
+2026-08-09 13:30:55,039 [INFO] ============================================================
+2026-08-09 13:30:55,050 [INFO] Testing video: Animals/1. Dog/MVI_3060.MOV
+2026-08-09 13:30:55,051 [INFO] Archive:      Animals_1of2.zip
+2026-08-09 13:30:55,051 [INFO] Archive URL:  https://zenodo.org/api/records/4010759/files/Animals_1of2.zip/content
+2026-08-09 13:33:52,295 [INFO] ------------------------------------------------------------
+2026-08-09 13:33:52,301 [INFO] Archive           : Animals_1of2.zip
+2026-08-09 13:33:52,301 [INFO] Video             : Animals/1. Dog/MVI_3060.MOV
+2026-08-09 13:33:52,302 [INFO] Compressed bytes  : 18323697 (17.47 MB)
+2026-08-09 13:33:52,302 [INFO] Original size     : 18564928 (17.70 MB)
+2026-08-09 13:33:52,302 [INFO] CRC32             : 0x5023369E
+2026-08-09 13:33:52,302 [INFO] Output size       : 18564928 bytes
+2026-08-09 13:33:52,303 [INFO] Download time     : 177.22 s
+2026-08-09 13:33:52,303 [INFO] Validation        : Valid
+2026-08-09 13:33:52,303 [INFO] 
+Remote extraction test: PASS
+2026-08-09 13:33:55,186 [INFO] ============================================================
+2026-08-09 13:33:55,186 [INFO] INCLUDE-50 REMOTE ZIP VIDEO DOWNLOADER
+2026-08-09 13:33:55,186 [INFO] ============================================================
+2026-08-09 13:33:55,187 [INFO] Total selection   : 650
+2026-08-09 13:33:55,187 [INFO] Already verified  : 0
+2026-08-09 13:33:55,187 [INFO] Pending to process: 650
+2026-08-09 13:33:55,187 [INFO] Workers           : 1
+2026-08-09 13:33:55,187 [INFO] [1/650] Label: 1. Dog | Video: Animals/1. Dog/MVI_3060.MOV | Archive: Animals_1of2.zip
+2026-08-09 13:44:49,069 [ERROR] Failed video 'Animals/1. Dog/MVI_3060.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:44:51,828 [INFO] ============================================================
+2026-08-09 13:44:51,828 [INFO] INCLUDE-50 REMOTE ZIP VIDEO DOWNLOADER
+2026-08-09 13:44:51,828 [INFO] ============================================================
+2026-08-09 13:44:51,829 [INFO] Total selection   : 650
+2026-08-09 13:44:51,829 [INFO] Already verified  : 0
+2026-08-09 13:44:51,829 [INFO] Pending to process: 650
+2026-08-09 13:44:51,829 [INFO] Workers           : 1
+2026-08-09 13:44:51,829 [INFO] [1/650] Label: 1. Dog | Video: Animals/1. Dog/MVI_3060.MOV | Archive: Animals_1of2.zip
+2026-08-09 13:45:53,052 [ERROR] Failed video 'Animals/1. Dog/MVI_3060.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:47:18,281 [INFO] ============================================================
+2026-08-09 13:47:18,282 [INFO] INCLUDE-50 REMOTE ZIP VIDEO DOWNLOADER
+2026-08-09 13:47:18,282 [INFO] ============================================================
+2026-08-09 13:47:18,283 [INFO] Total selection   : 650
+2026-08-09 13:47:18,283 [INFO] Already verified  : 0
+2026-08-09 13:47:18,283 [INFO] Pending to process: 650
+2026-08-09 13:47:18,283 [INFO] Workers           : 2
+2026-08-09 13:48:32,244 [ERROR] Failed video 'Animals/1. Dog/MVI_3059.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:49:34,124 [ERROR] Failed video 'Animals/1. Dog/MVI_3085.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:49:57,903 [ERROR] Failed video 'Animals/1. Dog/MVI_3060.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:50:52,995 [ERROR] Failed video 'Animals/1. Dog/MVI_4146.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:51:39,504 [ERROR] Failed video 'Animals/1. Dog/MVI_3030.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:52:30,525 [ERROR] Failed video 'Animals/1. Dog/MVI_3061.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:53:56,612 [ERROR] Failed video 'Animals/1. Dog/MVI_3029.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:55:03,575 [ERROR] Failed video 'Animals/1. Dog/MVI_3086.MOV': Invalid value '' for dtype 'float64'
+2026-08-09 13:58:38,065 [INFO] ============================================================
+2026-08-09 13:58:38,066 [INFO] INCLUDE-50 REMOTE ZIP VIDEO DOWNLOADER
+2026-08-09 13:58:38,066 [INFO] ============================================================
+2026-08-09 13:58:38,066 [INFO] Total selection   : 650
+2026-08-09 13:58:38,066 [INFO] Already verified  : 0
+2026-08-09 13:58:38,066 [INFO] Pending to process: 650
+2026-08-09 13:58:38,066 [INFO] Workers           : 2
+2026-08-09 14:32:09,267 [ERROR] Failed video 'Means_of_Transportation/11. Car/MVI_4177.MOV': HTTP Range request failed after 5 attempts: HTTPSConnectionPool(host='zenodo.org', port=443): Max retries exceeded with url: /api/records/4010759/files/Means_of_Transportation_1of2.zip/content (Caused by NameResolutionError("HTTPSConnection(host='zenodo.org', port=443): Failed to resolve 'zenodo.org' ([Errno 11001] getaddrinfo failed)"))
+2026-08-09 14:32:09,348 [ERROR] Failed video 'Means_of_Transportation/11. Car/MVI_3238.MOV': HTTP Range request failed after 5 attempts: HTTPSConnectionPool(host='zenodo.org', port=443): Max retries exceeded with url: /api/records/4010759/files/Means_of_Transportation_1of2.zip/content (Caused by NameResolutionError("HTTPSConnection(host='zenodo.org', port=443): Failed to resolve 'zenodo.org' ([Errno 11001] getaddrinfo failed)"))
