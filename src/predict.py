@@ -86,6 +86,11 @@ def draw_landmarks(frame, result):
 
 def main():
 
+    import argparse
+    parser = argparse.ArgumentParser(description="Real-Time ISL Recognition with Random Forest")
+    parser.add_argument("--source", type=str, default="0", help="Camera index (0, 1) or path to video file (.MOV, .mp4)")
+    args = parser.parse_args()
+
     # =========================================
     # CHECK FILES
     # =========================================
@@ -142,14 +147,22 @@ def main():
     )
 
     # =========================================
-    # CAMERA
+    # VIDEO / CAMERA CAPTURE
     # =========================================
 
-    camera = cv2.VideoCapture(0)
+    source = args.source
+    if source.isdigit():
+        cam_idx = int(source)
+        # Try DirectShow backend on Windows first, fallback to default
+        camera = cv2.VideoCapture(cam_idx, cv2.CAP_DSHOW)
+        if not camera.isOpened():
+            camera = cv2.VideoCapture(cam_idx)
+    else:
+        camera = cv2.VideoCapture(source)
 
     if not camera.isOpened():
 
-        print("ERROR: Could not open webcam.")
+        print(f"ERROR: Could not open video source: {source}")
 
         detector.close()
 
@@ -160,6 +173,7 @@ def main():
     print("       REAL-TIME ISL RECOGNITION")
     print("======================================")
     print()
+    print(f"Source: {source}")
     print("Show one of the trained signs.")
     print("Press Q to quit.")
     print()
