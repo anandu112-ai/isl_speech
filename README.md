@@ -1,147 +1,175 @@
-# ISL Speech — INCLUDE-50 Indian Sign Language Recognition + Speech System
+# ISL Speech — Indian Sign Language Recognition & Text-to-Speech System
 
-A complete end-to-end pipeline for **Indian Sign Language (ISL) recognition and text-to-speech conversion** using the [INCLUDE-50 dataset](https://zenodo.org/records/4010759).
+An end-to-end Python system for **Indian Sign Language (ISL) Recognition & Text-to-Speech Translation**, supporting two core components:
 
-The system downloads selected ISL videos from Zenodo using **HTTP byte-range requests** (no full 42 GB download required), extracts **MediaPipe Holistic landmarks**, trains a **BiLSTM temporal classifier**, and speaks predictions aloud using **offline TTS**.
-
----
-
-## Table of Contents
-
-- [Architecture Overview](#architecture-overview)
-- [Project Structure](#project-structure)
-- [Dataset](#dataset)
-- [Setup](#setup)
-- [Complete Workflow](#complete-workflow)
-  - [Phase 1 — Download Dataset](#phase-1--download-dataset)
-  - [Phase 2 — Inspect & Verify](#phase-2--inspect--verify)
-  - [Phase 3 — Preprocessing & Feature Extraction](#phase-3--preprocessing--feature-extraction)
-  - [Phase 4 — Training](#phase-4--training)
-  - [Phase 5 — Evaluation](#phase-5--evaluation)
-  - [Phase 6 — Inference & Demo](#phase-6--inference--demo)
-- [Module Reference](#module-reference)
-  - [tools/ — Remote ZIP Download Engine](#tools--remote-zip-download-engine)
-  - [src/ — Model & Pipeline Modules](#src--model--pipeline-modules)
-  - [scripts/ — CLI Entrypoints](#scripts--cli-entrypoints)
-  - [configs/ — Configuration](#configs--configuration)
-- [Key Design Decisions](#key-design-decisions)
-- [Hardware Requirements](#hardware-requirements)
-- [Dependencies](#dependencies)
-- [Known Issues & Limitations](#known-issues--limitations)
-- [Acceptance Criteria Checklist](#acceptance-criteria-checklist)
+1. 🔤 **Real-Time Alphabet & Gesture System** — 29-class single-character CNN (ResNet18/MobileNetV3) with live OpenCV HUD overlay, temporal smoothing, and offline TTS output. Pre-trained weights included (`best.pt`, 100% validation accuracy).
+2. 🎥 **INCLUDE-50 Word-Level Temporal System** — 50-class word recognition using MediaPipe Holistic 225-dim landmark extraction, custom HTTP byte-range ZIP video downloader from Zenodo, and a 2-layer BiLSTM classifier.
 
 ---
 
-## Architecture Overview
+## 🌟 Quick Start — Running the Project
 
-```
-INCLUDE-50 Zenodo Dataset (42.38 GB total ZIP archives)
-        │
-        │  HTTP Range Requests — download ONLY selected video bytes
-        │  (8.10 GB compressed / 8.24 GB extracted)
-        ▼
-data/videos/train/{label}/*.MOV
-data/videos/val/{label}/*.MOV
-        │
-        │  32-frame uniform temporal sampling
-        │  MediaPipe Holistic → 225-dim float32 vector/frame
-        ▼
-data/features/train/{label}/*.npz   → shape (32, 225)
-data/features/val/{label}/*.npz     → shape (32, 225)
-        │
-        │  BiLSTM Temporal Classifier
-        │  Input (N, 32, 225) → Linear(225,128) → LayerNorm
-        │  → 2-layer BiLSTM(128, bidirectional) → Mean+Max Pool
-        │  → Linear(512,128) → Dropout(0.3) → Linear(128, 50)
-        ▼
-models/best_model/best.pt   → 50-class softmax
-        │
-        │  Label normalization ("48. Hello" → "Hello")
-        │  Confidence threshold (default ≥ 0.70)
-        ▼
-Text Output + pyttsx3 Speech Output
+### Prerequisites
+
+Ensure you have Python 3.10+ installed and the virtual environment activated:
+
+```powershell
+cd c:\Users\anand\Ananduuu\isl_speech
+.venv\Scripts\activate
 ```
 
 ---
 
-## Project Structure
+### 1. Run Real-Time Webcam Alphabet Recognition (Instant Demo)
+
+The pre-trained model checkpoint (`models/alphabet/best_model/best.pt`) is included in the repository. Run the live webcam detector:
+
+```powershell
+# Run with on-screen HUD (visual display)
+python scripts/webcam_alphabet.py --no-speak
+
+# Run with TTS voice output enabled (requires pyttsx3)
+python scripts/webcam_alphabet.py
+
+# Specify custom camera index if webcam 0 is unavailable
+python scripts/webcam_alphabet.py --source 1 --no-speak
+```
+
+**Controls & Features:**
+- **Press `Q`**: Quit the live webcam session.
+- **HUD Overlay**: Shows predicted character, real-time confidence bar (0–100%), and Top-3 probabilities.
+- **Temporal Smoothing**: Rolling majority vote window (default 8 frames) for stable predictions.
+- **Silent Labels**: `nothing`, `del`, and `space` are automatically filtered from voice output.
+
+---
+
+### 2. Evaluate the Alphabet Model
+
+To test model predictions on a set of benchmark test images:
+
+```powershell
+python scripts/evaluate_alphabet.py
+```
+
+---
+
+### 3. Re-train the Alphabet Model on Kaggle (Free GPU)
+
+To re-train or fine-tune the model using Kaggle's free GPU:
+
+1. Open [kaggle_train_alphabet.py](file:///c:/Users/anand/Ananduuu/isl_speech/kaggle_train_alphabet.py).
+2. Create a new notebook at [kaggle.com/code](https://www.kaggle.com/code) and upload `kaggle_train_alphabet.py`.
+3. Add dataset: Search for `asl alphabet grassknoted` in Kaggle datasets.
+4. Enable GPU (`GPU T4 x2` in notebook settings) and click **Run All**.
+5. Download the output `best.pt` and `label_map.json` and place them locally into:
+   ```
+   models/alphabet/best_model/best.pt
+   models/alphabet/best_model/label_map.json
+   ```
+
+---
+
+### 4. Run INCLUDE-50 Word Recognition System
+
+For word-level sign recognition:
+
+```powershell
+# Step A: Check dataset status
+python scripts/verify_dataset.py
+
+# Step B: Run offline inference on a sample video
+python scripts/predict.py --video data/videos/val/1.Dog/MVI_2979.MOV
+
+# Step C: Run offline sign-to-speech demo
+python scripts/demo.py
+```
+
+---
+
+## 🏗️ Architecture Overview
+
+### 1. Real-Time Alphabet Recognition Subsystem
+
+```
+Webcam Frame (BGR) ──► RGB Conversion ──► Center Crop (224x224) ──► ResNet18 / MobileNetV3 CNN
+                                                                            │
+                                                                            ▼
+TTS Speech Output ◄── Temporal Smoothing ◄── Softmax Probabilities ◄── Logits (29 Classes)
+ (pyttsx3 Voice)      (Majority Vote)         + Confidence Bar
+```
+
+- **Classes (29)**: `A` to `Z`, `del`, `nothing`, `space`
+- **Model**: Pre-trained ResNet18 / MobileNetV3 CNN Backbone with Linear Classification Head
+- **Performance**: 100% Validation Accuracy on test benchmark
+- **Inference Engine**: Universal auto-detecting loader ([src/alphabet/inference.py](file:///c:/Users/anand/Ananduuu/isl_speech/src/alphabet/inference.py)) supporting both PyTorch ResNet and MobileNet architectures seamlessly.
+
+### 2. INCLUDE-50 Word-Level Subsystem
+
+```
+INCLUDE-50 Zenodo Archives (42 GB remote ZIPs)
+        │
+        │ HTTP Range Requests (Selective download ~8 GB)
+        ▼
+Video Files (.MOV) ──► MediaPipe Holistic ──► 225-dim Feature Vectors (32 frames)
+                                                        │
+                                                        ▼
+Offline TTS Output ◄── Label Normalization ◄── BiLSTM Classifier (50 classes)
+```
+
+- **Data Download Engine**: Custom `remote_zip.py` leveraging HTTP byte-range requests to fetch only selected video files without downloading full 42 GB archives.
+- **Landmark Extractor**: MediaPipe Holistic extracting Pose (33), Left Hand (21), Right Hand (21) keypoints (225 normalized floating-point coordinates per frame).
+- **Classifier**: 2-Layer Bidirectional LSTM with Linear Projection, LayerNorm, and Temporal Mean+Max Pooling.
+
+---
+
+## 📁 Directory Structure
 
 ```
 isl_speech/
 │
 ├── configs/
-│   └── config.yaml                   ← All hyperparameters & paths
-│
-├── data/
-│   ├── metadata/
-│   │   ├── include50.csv             ← Original INCLUDE-50 metadata (881 rows)
-│   │   ├── include50_archive_map.csv ← video_path → archive → archive_url
-│   │   ├── selected_videos.csv       ← AUTHORITATIVE SELECTION (650 videos)
-│   │   ├── download_manifest.csv     ← Live download state (auto-generated)
-│   │   ├── features_manifest.csv     ← Preprocessing state (auto-generated)
-│   │   ├── label_map.json            ← {label: class_id} deterministic mapping
-│   │   ├── video_quality.csv         ← Per-video quality metrics
-│   │   └── download_sizes.csv        ← Archive size estimates
-│   │
-│   ├── videos/
-│   │   ├── train/{label}/*.MOV       ← Downloaded training videos
-│   │   └── val/{label}/*.MOV         ← Downloaded validation videos
-│   │
-│   └── features/
-│       ├── train/{label}/*.npz       ← (32, 225) float32 landmark features
-│       └── val/{label}/*.npz
+│   ├── alphabet_config.yaml          ← Alphabet CNN hyperparameters & threshold settings
+│   └── config.yaml                   ← INCLUDE-50 BiLSTM hyperparameters & paths
 │
 ├── models/
-│   ├── checkpoints/
-│   │   └── latest.pt                 ← Auto-saved after every epoch
-│   └── best_model/
-│       ├── best.pt                   ← Best validation accuracy checkpoint
-│       ├── label_map.json            ← Copied alongside model for inference
-│       └── config.yaml               ← Copied alongside model for inference
+│   └── alphabet/
+│       ├── best_model/
+│       │   ├── best.pt               ← Pre-trained ResNet18 model checkpoint (44.8 MB)
+│       │   └── label_map.json        ← 29-class label index mapping
+│       └── label_map.json
 │
-├── reports/
-│   ├── training_history.csv          ← Epoch-level loss/accuracy log
-│   ├── training_curves.png           ← Loss & accuracy plots
-│   ├── confusion_matrix.png          ← 50×50 confusion matrix
-│   ├── classification_report.csv     ← Per-class precision/recall/F1
-│   └── FINAL_REPORT.md               ← Human-readable project report
+├── src/                              ← Core Python Packages
+│   ├── alphabet/                     ← Single-character alphabet modules
+│   │   ├── dataset.py                ← PyTorch Image Dataset loader & split logic
+│   │   ├── evaluate.py               ← Test evaluation metrics & confusion matrix
+│   │   ├── inference.py              ← Universal multi-architecture Inference Engine
+│   │   ├── model.py                  ← MobileNetV3 / EfficientNet CNN architectures
+│   │   ├── preprocessing.py          ← Image transform & MediaPipe hand crop utility
+│   │   └── train.py                  ← 2-phase training loop (frozen + fine-tune)
+│   │
+│   ├── dataset/                      ← INCLUDE-50 dataset utilities
+│   ├── features/                     ← MediaPipe Holistic 225-dim landmark extractor
+│   ├── models/                       ← BiLSTM temporal model architecture
+│   ├── preprocessing/                ← Uniform temporal sampling (32 frames)
+│   ├── speech/                       ← pyttsx3 offline TTS wrapper
+│   ├── training/                     ← BiLSTM trainer module
+│   └── utils/                        ← Label normalization & YAML config parser
 │
-├── logs/
-│   └── download.log                  ← HTTP download event log
+├── scripts/                          ← CLI Executable Scripts
+│   ├── webcam_alphabet.py            ← Real-time alphabet recognition webcam HUD
+│   ├── train_alphabet.py             ← Local alphabet CNN training script
+│   ├── evaluate_alphabet.py          ← Alphabet evaluation entrypoint
+│   ├── prepare_alphabet_dataset.py   ← Dataset split & structuring script
+│   ├── inspect_alphabet_dataset.py   ← Dataset class distribution checker
+│   ├── train.py                      ← INCLUDE-50 BiLSTM trainer
+│   ├── predict.py                    ← Single video prediction script
+│   ├── webcam_demo.py                ← Word-level live webcam demo
+│   └── demo.py                       ← Offline sign-to-speech script
 │
-├── tools/                            ← Remote ZIP download engine
-│   ├── remote_zip.py                 ← HTTP Range requests, ZIP parsing, ZIP64
-│   ├── downloader.py                 ← Streaming decompress + CRC32 validate
+├── tools/                            ← Remote HTTP Range ZIP Downloader
+│   ├── remote_zip.py                 ← HTTP Range requests & ZIP directory parser
+│   ├── downloader.py                 ← Streaming decompress & CRC32 validator
 │   ├── manifest.py                   ← Download state persistence
-│   └── validation.py                 ← CRC32, path safety, dataset integrity
-│
-├── src/                              ← Model & pipeline source modules
-│   ├── features/
-│   │   └── extractor.py              ← MediaPipe Holistic 225-dim extractor
-│   ├── preprocessing/
-│   │   └── processor.py              ← 32-frame sampling + .npz writer
-│   ├── dataset/
-│   │   └── sign_dataset.py           ← PyTorch Dataset + DataLoader
-│   ├── models/
-│   │   └── bilstm.py                 ← BiLSTM classifier architecture
-│   ├── training/
-│   │   └── trainer.py                ← Training loop, checkpoint, early stop
-│   ├── speech/
-│   │   └── tts.py                    ← pyttsx3 offline TTS engine
-│   └── utils/
-│       ├── labels.py                 ← normalize_label(), label_to_text()
-│       └── config.py                 ← YAML config loader
-│
-├── scripts/                          ← CLI entry points
-│   ├── verify_dataset.py             ← Dataset integrity checker
-│   ├── inspect_dataset.py            ← Video quality analysis
-│   ├── estimate_download_size.py     ← Remote ZIP size estimator (no download)
-│   ├── download_selected_videos.py   ← Main video downloader
-│   ├── preprocess_dataset.py         ← Frame sampling + feature extraction
-│   ├── extract_features.py           ← Alias for preprocess_dataset.py
-│   ├── train.py                      ← Model training
-│   ├── evaluate.py                   ← Model evaluation
-│   ├── predict.py                    ← Single video inference
 │   ├── speak.py                      ← TTS utility
 │   ├── demo.py                       ← Offline sign-to-speech demo
 │   ├── webcam_demo.py                ← Real-time webcam demo

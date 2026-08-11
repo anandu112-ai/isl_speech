@@ -141,15 +141,15 @@ def main():
         lines.append(f"Class balance: max={max_count}, min={min_count}, ratio={imbalance_ratio:.1f}x")
 
         if imbalance_ratio > 5:
-            lines.append("⚠  WARNING: Severe class imbalance detected (>5x ratio).")
+            lines.append("  [WARNING] Severe class imbalance detected (>5x ratio).")
             lines.append("   Consider using use_class_weights: true in alphabet_config.yaml.")
         elif imbalance_ratio > 2:
-            lines.append("⚠  NOTICE: Moderate class imbalance detected (>2x ratio).")
+            lines.append("  [NOTICE] Moderate class imbalance detected (>2x ratio).")
 
     if missing_classes:
         lines.append("")
-        lines.append(f"⚠  MISSING CLASSES (0 samples): {missing_classes}")
-        lines.append("   These classes will not be learned during training!")
+        lines.append(f"  [MISSING CLASSES] (0 samples): {missing_classes}")
+        lines.append("   These classes currently have 0 samples!")
 
     if stats["corrupt"]:
         lines.append("")

@@ -18,18 +18,18 @@ __pycache__/
 *.h5
 *.keras
 *.pt
+!models/alphabet/best_model/best.pt
 models/checkpoints/
-models/best_model/
+models/alphabet/checkpoints/
 
 # Dataset & Downloaded Media
-dataset/raw/
-dataset/processed/
+data/raw_digits/
+data/isl_alphabet_digits/
+data/raw_alphabet/
 data/videos/
 data/features/
 data/processed/
-data/metadata/download_manifest.csv
-data/metadata/features_manifest.csv
-data/metadata/video_quality.csv
+dataset/
 
 # Logs & Temporary Files
 logs/
