@@ -75,16 +75,11 @@ def build_train_transform(
 
 def build_eval_transform(image_size: int = 224) -> Callable:
     """
-    Builds a deterministic evaluation/test pipeline — no random operations.
-
-    Args:
-        image_size: Target image size (square).
+    Builds a deterministic evaluation transform — resizes directly to square target size
+    without CenterCrop to avoid clipping fingertips from cropped hand images.
     """
-    # Resize slightly larger then center-crop for stable evaluation
-    resize_to = int(image_size * 1.143)  # ~256 for 224
     return transforms.Compose([
-        transforms.Resize(resize_to),
-        transforms.CenterCrop(image_size),
+        transforms.Resize((image_size, image_size)),
         transforms.ToTensor(),
         transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
     ])
@@ -93,16 +88,10 @@ def build_eval_transform(image_size: int = 224) -> Callable:
 class HandCropPreprocessor:
     """
     Optional MediaPipe hand detection and bounding-box crop preprocessor.
-
-    Use when `hand_crop: true` is set in config. Falls back to full image
-    when no hand is detected.
-
-    Usage:
-        preprocessor = HandCropPreprocessor(padding=0.1)
-        cropped_pil = preprocessor.crop(pil_image)
+    Crops a padded square bounding box around the detected hand to preserve aspect ratio.
     """
 
-    def __init__(self, padding: float = 0.1, min_hand_detection_confidence: float = 0.5):
+    def __init__(self, padding: float = 0.20, min_hand_detection_confidence: float = 0.4):
         self.padding = padding
         self.min_detection_confidence = min_hand_detection_confidence
         self._detector = None
@@ -139,7 +128,7 @@ class HandCropPreprocessor:
 
     def crop(self, image: Image.Image) -> Image.Image:
         """
-        Detects the first hand in `image` and returns the padded bounding-box crop.
+        Detects the first hand in `image` and returns a padded, square bounding-box crop.
         Falls back to the original image if no hand is detected or detector unavailable.
         """
         if self._detector is None:
@@ -162,11 +151,22 @@ class HandCropPreprocessor:
             xs = [lm.x for lm in hand]
             ys = [lm.y for lm in hand]
 
-            pad = self.padding
-            x_min = max(0, int((min(xs) - pad) * w))
-            y_min = max(0, int((min(ys) - pad) * h))
-            x_max = min(w, int((max(xs) + pad) * w))
-            y_max = min(h, int((max(ys) + pad) * h))
+            # Bounding box center and max dimension
+            x_min_raw, x_max_raw = min(xs) * w, max(xs) * w
+            y_min_raw, y_max_raw = min(ys) * h, max(ys) * h
+            
+            box_w = x_max_raw - x_min_raw
+            box_h = y_max_raw - y_min_raw
+            cx = (x_min_raw + x_max_raw) / 2.0
+            cy = (y_min_raw + y_max_raw) / 2.0
+
+            # Make bounding box square with padding
+            side = max(box_w, box_h) * (1.0 + self.padding * 2.0)
+            
+            x_min = max(0, int(cx - side / 2.0))
+            y_min = max(0, int(cy - side / 2.0))
+            x_max = min(w, int(cx + side / 2.0))
+            y_max = min(h, int(cy + side / 2.0))
 
             if x_max <= x_min or y_max <= y_min:
                 return image
