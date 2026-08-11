@@ -28,7 +28,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.alphabet.dataset import ISLAlphabetDataset, build_dataloaders
 from src.alphabet.evaluate import AlphabetEvaluator
-from src.alphabet.model import load_checkpoint
+from src.alphabet.inference import load_model_from_checkpoint
 from src.alphabet.preprocessing import build_eval_transform
 from src.utils.labels import create_deterministic_alphabet_label_map, load_label_map
 
@@ -88,7 +88,8 @@ def main():
         label_map = create_deterministic_alphabet_label_map()
 
     # Load model
-    model, ckpt = load_checkpoint(best_model_path, device, num_classes=len(label_map))
+    model = load_model_from_checkpoint(best_model_path, device, label_map)
+    ckpt = torch.load(best_model_path, map_location=device, weights_only=False)
 
     print("=" * 60)
     print("ISL ALPHABET + DIGIT — EVALUATION (TEST SET)")
