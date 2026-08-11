@@ -250,11 +250,51 @@ class AlphabetInferenceEngine:
         return self.predict(image)
 
     def predict_from_numpy(self, frame_bgr: np.ndarray) -> Dict:
-        """Accepts a BGR OpenCV frame and runs inference."""
+        """
+        Accepts a BGR OpenCV frame and runs hybrid inference (CNN + Landmark Posture Engine).
+        Landmark posture rules provide instant lighting-invariant boost.
+        """
         import cv2
         rgb   = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
         image = Image.fromarray(rgb)
-        return self.predict(image)
+
+        # 1. Run CNN inference
+        result = self.predict(image)
+
+        # 2. Run MediaPipe Landmark Posture Engine (if detector available)
+        if self.hand_preprocessor is not None and self.hand_preprocessor._detector is not None:
+            try:
+                import mediapipe as mp
+                from src.alphabet.landmark_classifier import compute_posture_features, classify_hand_gesture_rules
+
+                mp_img = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+                mp_res = self.hand_preprocessor._detector.detect(mp_img)
+
+                if mp_res.hand_landmarks:
+                    hand_lms = mp_res.hand_landmarks[0]
+                    metrics = compute_posture_features(hand_lms)
+                    rule_label, rule_conf = classify_hand_gesture_rules(metrics)
+
+                    # If geometric landmark rule identifies a clear posture with high confidence:
+                    if rule_conf >= 90.0 and rule_label in self.label_map:
+                        # Combine CNN and Landmark signals
+                        cnn_pred = result["prediction"]
+                        cnn_conf = result["confidence"]
+
+                        if cnn_pred == rule_label:
+                            # Both CNN and Landmark agree -> 99%+ rock-solid confidence!
+                            result["prediction"] = rule_label
+                            result["confidence"] = round(max(cnn_conf, 98.5), 2)
+                            result["is_certain"] = True
+                        elif cnn_conf < 75.0:
+                            # CNN is uncertain, but geometric joint posture is clear -> override with Landmark
+                            result["prediction"] = rule_label
+                            result["confidence"] = round(rule_conf, 2)
+                            result["is_certain"] = True
+            except Exception as e:
+                logger.debug(f"Landmark posture engine bypass: {e}")
+
+        return result
 
     def close(self) -> None:
         if self.hand_preprocessor is not None:
