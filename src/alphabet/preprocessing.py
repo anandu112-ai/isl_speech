@@ -95,15 +95,17 @@ class HandCropPreprocessor:
         self.padding = padding
         self.min_detection_confidence = min_hand_detection_confidence
         self._detector = None
+        self._init_detector()
 
     def _init_detector(self) -> None:
-        """Lazy-initialize MediaPipe hand detection (Tasks API)."""
+        """Initialize MediaPipe hand detection (Tasks API)."""
+        if self._detector is not None:
+            return
         try:
             import mediapipe as mp
             BaseOptions = mp.tasks.BaseOptions
             Vision = mp.tasks.vision
 
-            # Search for the task model file
             possible_paths = [
                 Path("models/hand_landmarker.task"),
                 Path("models/alphabet/hand_landmarker.task"),
@@ -121,10 +123,56 @@ class HandCropPreprocessor:
                 min_hand_detection_confidence=self.min_detection_confidence,
             )
             self._detector = Vision.HandLandmarker.create_from_options(options)
-            logger.info("HandCropPreprocessor: MediaPipe hand detector initialized.")
+            logger.info("HandCropPreprocessor: MediaPipe hand detector initialized successfully.")
         except Exception as e:
             logger.warning(f"HandCropPreprocessor: Could not initialize MediaPipe: {e}. Hand crop disabled.")
             self._detector = None
+
+    def detect_hand_bbox(self, frame_bgr: np.ndarray) -> Tuple[Optional[Tuple[int, int, int, int]], Optional[np.ndarray]]:
+        """
+        Detects hand in a BGR numpy frame.
+        Returns: ((x1, y1, x2, y2), cropped_hand_bgr) or (None, None) if no hand detected.
+        """
+        if self._detector is None:
+            return None, None
+
+        try:
+            import mediapipe as mp
+            rgb = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
+            mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+            result = self._detector.detect(mp_image)
+
+            if not result.hand_landmarks:
+                return None, None
+
+            h, w = frame_bgr.shape[:2]
+            hand = result.hand_landmarks[0]
+            xs = [lm.x for lm in hand]
+            ys = [lm.y for lm in hand]
+
+            x_min_raw, x_max_raw = min(xs) * w, max(xs) * w
+            y_min_raw, y_max_raw = min(ys) * h, max(ys) * h
+
+            box_w = x_max_raw - x_min_raw
+            box_h = y_max_raw - y_min_raw
+            cx = (x_min_raw + x_max_raw) / 2.0
+            cy = (y_min_raw + y_max_raw) / 2.0
+
+            side = max(box_w, box_h) * (1.0 + self.padding * 2.0)
+
+            x1 = max(0, int(cx - side / 2.0))
+            y1 = max(0, int(cy - side / 2.0))
+            x2 = min(w, int(cx + side / 2.0))
+            y2 = min(h, int(cy + side / 2.0))
+
+            if x2 <= x1 or y2 <= y1:
+                return None, None
+
+            crop_bgr = frame_bgr[y1:y2, x1:x2]
+            return (x1, y1, x2, y2), crop_bgr
+        except Exception as e:
+            logger.warning(f"detect_hand_bbox failed: {e}")
+            return None, None
 
     def crop(self, image: Image.Image) -> Image.Image:
         """
@@ -132,47 +180,14 @@ class HandCropPreprocessor:
         Falls back to the original image if no hand is detected or detector unavailable.
         """
         if self._detector is None:
-            self._init_detector()
-
-        if self._detector is None:
             return image
 
         try:
-            import mediapipe as mp
             img_np = np.array(image.convert("RGB"))
-            mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=img_np)
-            result = self._detector.detect(mp_image)
-
-            if not result.hand_landmarks:
-                return image
-
-            h, w = img_np.shape[:2]
-            hand = result.hand_landmarks[0]
-            xs = [lm.x for lm in hand]
-            ys = [lm.y for lm in hand]
-
-            # Bounding box center and max dimension
-            x_min_raw, x_max_raw = min(xs) * w, max(xs) * w
-            y_min_raw, y_max_raw = min(ys) * h, max(ys) * h
-            
-            box_w = x_max_raw - x_min_raw
-            box_h = y_max_raw - y_min_raw
-            cx = (x_min_raw + x_max_raw) / 2.0
-            cy = (y_min_raw + y_max_raw) / 2.0
-
-            # Make bounding box square with padding
-            side = max(box_w, box_h) * (1.0 + self.padding * 2.0)
-            
-            x_min = max(0, int(cx - side / 2.0))
-            y_min = max(0, int(cy - side / 2.0))
-            x_max = min(w, int(cx + side / 2.0))
-            y_max = min(h, int(cy + side / 2.0))
-
-            if x_max <= x_min or y_max <= y_min:
-                return image
-
-            cropped = img_np[y_min:y_max, x_min:x_max]
-            return Image.fromarray(cropped)
+            bbox, crop_rgb = self.detect_hand_bbox(cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR))
+            if crop_rgb is not None and crop_rgb.size > 0:
+                return Image.fromarray(cv2.cvtColor(crop_rgb, cv2.COLOR_BGR2RGB))
+            return image
         except Exception as e:
             logger.warning(f"Hand crop failed: {e}. Returning original image.")
             return image

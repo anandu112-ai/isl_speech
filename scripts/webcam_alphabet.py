@@ -259,52 +259,15 @@ def main():
             hand_box = None
             hand_crop_bgr = None
 
-            if engine.hand_preprocessor is not None and engine.hand_preprocessor._detector is not None:
-                try:
-                    import mediapipe as mp
-                    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    mp_img = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
-                    res = engine.hand_preprocessor._detector.detect(mp_img)
-
-                    if res.hand_landmarks:
-                        hand = res.hand_landmarks[0]
-                        xs = [lm.x for lm in hand]
-                        ys = [lm.y for lm in hand]
-
-                        # Bounding box center and size with 20% square padding
-                        x_min_raw, x_max_raw = min(xs) * w, max(xs) * w
-                        y_min_raw, y_max_raw = min(ys) * h, max(ys) * h
-
-                        box_w = x_max_raw - x_min_raw
-                        box_h = y_max_raw - y_min_raw
-                        cx = (x_min_raw + x_max_raw) / 2.0
-                        cy = (y_min_raw + y_max_raw) / 2.0
-
-                        side = max(box_w, box_h) * 1.45  # 22.5% padding each side
-
-                        hx1 = max(0, int(cx - side / 2.0))
-                        hy1 = max(0, int(cy - side / 2.0))
-                        hx2 = min(w, int(cx + side / 2.0))
-                        hy2 = min(h, int(cy + side / 2.0))
-
-                        if hx2 > hx1 and hy2 > hy1:
-                            hand_box = (hx1, hy1, hx2, hy2)
-                            hand_crop_bgr = frame[hy1:hy2, hx1:hx2]
-                except Exception:
-                    pass
+            if engine.hand_preprocessor is not None:
+                hand_box, hand_crop_bgr = engine.hand_preprocessor.detect_hand_bbox(frame)
 
             # Run inference: if hand is detected, predict on hand crop; otherwise full frame
             if hand_crop_bgr is not None and hand_crop_bgr.size > 0:
                 result = engine.predict_from_numpy(hand_crop_bgr)
             else:
-                # No hand detected in camera view -> set low confidence / searching state
-                result = {
-                    "prediction": "nothing",
-                    "confidence": 0.0,
-                    "is_certain": False,
-                    "top5": [("nothing", 0.0)],
-                    "all_probs": np.zeros(len(engine.label_map)),
-                }
+                # Fallback to full frame prediction if hand detector is off or doesn't find hand
+                result = engine.predict_from_numpy(frame)
 
             pred_buffer.append(result["prediction"] if result["is_certain"] else None)
 
