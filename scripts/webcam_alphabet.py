@@ -255,19 +255,35 @@ def main():
             # Get image dimensions
             h, w = frame.shape[:2]
 
-            # Detect hand landmarks & extract square bounding box
+            # Detect hand landmarks (supports 1 or 2 hands)
             hand_box = None
             hand_crop_bgr = None
+            mp_res = None
 
             if engine.hand_preprocessor is not None:
-                hand_box, hand_crop_bgr = engine.hand_preprocessor.detect_hand_bbox(frame)
+                hand_box, hand_crop_bgr, mp_res = engine.hand_preprocessor.detect_hand_bbox(frame)
 
-            # Run inference: if hand is detected, predict on hand crop; otherwise full frame
+            # 1. Run Dual-Hand ISL Gesture Classification
+            isl_pred, isl_conf, isl_type = "nothing", 0.0, "None"
+            if mp_res is not None:
+                try:
+                    from src.alphabet.isl_dual_hand import parse_dual_hand_landmarks, classify_isl_dual_hand
+                    l_coords, r_coords = parse_dual_hand_landmarks(mp_res)
+                    isl_pred, isl_conf, isl_type = classify_isl_dual_hand(l_coords, r_coords)
+                except Exception:
+                    pass
+
+            # 2. Run CNN Model Inference
             if hand_crop_bgr is not None and hand_crop_bgr.size > 0:
                 result = engine.predict_from_numpy(hand_crop_bgr)
             else:
-                # Fallback to full frame prediction if hand detector is off or doesn't find hand
                 result = engine.predict_from_numpy(frame)
+
+            # 3. Fuse Dual-Hand ISL and CNN Model Signals
+            if isl_conf >= 90.0:
+                result["prediction"] = isl_pred
+                result["confidence"] = max(result["confidence"], isl_conf)
+                result["is_certain"] = True
 
             pred_buffer.append(result["prediction"] if result["is_certain"] else None)
 

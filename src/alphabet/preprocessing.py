@@ -119,22 +119,22 @@ class HandCropPreprocessor:
             options = Vision.HandLandmarkerOptions(
                 base_options=BaseOptions(model_asset_path=str(model_path)),
                 running_mode=Vision.RunningMode.IMAGE,
-                num_hands=1,
+                num_hands=2,  # Support BOTH Left and Right Hands for ISL
                 min_hand_detection_confidence=self.min_detection_confidence,
             )
             self._detector = Vision.HandLandmarker.create_from_options(options)
-            logger.info("HandCropPreprocessor: MediaPipe hand detector initialized successfully.")
+            logger.info("HandCropPreprocessor: Dual-Hand MediaPipe detector initialized successfully.")
         except Exception as e:
             logger.warning(f"HandCropPreprocessor: Could not initialize MediaPipe: {e}. Hand crop disabled.")
             self._detector = None
 
-    def detect_hand_bbox(self, frame_bgr: np.ndarray) -> Tuple[Optional[Tuple[int, int, int, int]], Optional[np.ndarray]]:
+    def detect_hand_bbox(self, frame_bgr: np.ndarray) -> Tuple[Optional[Tuple[int, int, int, int]], Optional[np.ndarray], Optional[object]]:
         """
-        Detects hand in a BGR numpy frame.
-        Returns: ((x1, y1, x2, y2), cropped_hand_bgr) or (None, None) if no hand detected.
+        Detects 1 or 2 hands in a BGR numpy frame.
+        Returns: ((x1, y1, x2, y2), cropped_hand_bgr, mp_result) or (None, None, None).
         """
         if self._detector is None:
-            return None, None
+            return None, None, None
 
         try:
             import mediapipe as mp
@@ -143,15 +143,19 @@ class HandCropPreprocessor:
             result = self._detector.detect(mp_image)
 
             if not result.hand_landmarks:
-                return None, None
+                return None, None, None
 
             h, w = frame_bgr.shape[:2]
-            hand = result.hand_landmarks[0]
-            xs = [lm.x for lm in hand]
-            ys = [lm.y for lm in hand]
+            
+            # Aggregate all landmark coordinates across all detected hands (1 or 2)
+            all_xs = []
+            all_ys = []
+            for hand in result.hand_landmarks:
+                all_xs.extend([lm.x for lm in hand])
+                all_ys.extend([lm.y for lm in hand])
 
-            x_min_raw, x_max_raw = min(xs) * w, max(xs) * w
-            y_min_raw, y_max_raw = min(ys) * h, max(ys) * h
+            x_min_raw, x_max_raw = min(all_xs) * w, max(all_xs) * w
+            y_min_raw, y_max_raw = min(all_ys) * h, max(all_ys) * h
 
             box_w = x_max_raw - x_min_raw
             box_h = y_max_raw - y_min_raw
@@ -166,13 +170,12 @@ class HandCropPreprocessor:
             y2 = min(h, int(cy + side / 2.0))
 
             if x2 <= x1 or y2 <= y1:
-                return None, None
+                return None, None, result
 
             crop_bgr = frame_bgr[y1:y2, x1:x2]
-            return (x1, y1, x2, y2), crop_bgr
         except Exception as e:
             logger.warning(f"detect_hand_bbox failed: {e}")
-            return None, None
+            return None, None, None
 
     def crop(self, image: Image.Image) -> Image.Image:
         """
